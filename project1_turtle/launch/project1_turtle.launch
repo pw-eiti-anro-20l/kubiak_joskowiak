@@ -1,0 +1,12 @@
+<launch>
+
+	<param name="keycode_L" value="a"/>
+	<param name="keycode_R" value="d"/>
+	<param name="keycode_F" value="w"/>
+	<param name="keycode_B" value="s"/>
+	
+	<node pkg="turtlesim" name="sim" type="turtlesim_node"/>
+
+	<node pkg="project1_turtle" name="op" type="turtle_wasd_op" output="screen"/>
+
+</launch>
