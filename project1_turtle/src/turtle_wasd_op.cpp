@@ -32,6 +32,7 @@ TurtleWasdOp::TurtleWasdOp():
 	angular(0.0),
 	l_scale(2.0),
 	a_scale(2.0),
+	// default key bindings
 	keycode_L('a'),
 	keycode_R('d'),
 	keycode_F('w'),
