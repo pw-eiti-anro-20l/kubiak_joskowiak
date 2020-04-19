@@ -43,7 +43,6 @@
           <cylinder radius="${base_diam/2}" length="${base_height}"/>
         </geometry>
       </collision>
-      <!--xacro:default_inertial mass="10"/-->
     </link>
 
     <link name="link1">
@@ -63,7 +62,7 @@
       <xacro:default_inertial mass="2"/>
     </link>
 
-    <joint name="joint1" type="revolute">
+    <joint name="joint1" type="fixed">
       <axis xyz="0 0 1"/>
       <limit effort="1000.0" lower="-10" upper="10" velocity="0.5"/>
       <origin rpy="0 0 0" xyz="0 0 ${base_height}"/>
@@ -88,7 +87,7 @@
       <xacro:default_inertial mass="2"/>
     </link>
 
-    <joint name="joint2" type="revolute">
+    <joint name="joint2" type="fixed">
       <axis xyz="0 0 1"/>
       <limit effort="1000.0" lower="-3.8" upper="3.8" velocity="0.5"/>
       <origin rpy="1.5708 -1.5708 0" xyz="0 0 ${d1}"/>
@@ -113,7 +112,7 @@
       <xacro:default_inertial mass="2"/>
     </link>
 
-    <joint name="joint3" type="revolute">
+    <joint name="joint3" type="fixed">
       <axis xyz="0 0 1"/>
       <limit effort="1000.0" lower="-3.8" upper="3.8" velocity="0.5"/>
       <origin rpy="1.5708 -1.5708 0" xyz="0 0 ${d2}"/>
