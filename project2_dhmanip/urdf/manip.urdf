@@ -1,0 +1,149 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="manipulator" >
+
+    <xacro:property name="d1" value="0.2"/>
+    <xacro:property name="d2" value="0.2"/>
+    <xacro:property name="d3" value="0.2"/>
+    <xacro:property name="base_diam" value="0.4"/>
+    <xacro:property name="base_height" value="0.1"/>
+    <xacro:property name="link_diam" value="0.05"/>
+    <xacro:property name="tool_length" value="0.05"/>
+
+
+    <material name="blue">
+      <color rgba="0 0 0.8 1"/>
+    </material>
+
+    <material name="black">
+      <color rgba="0 0 0 1"/>
+    </material>
+
+    <material name="white">
+      <color rgba="1 1 1 1"/>
+    </material>
+
+    <xacro:macro name="default_inertial" params="mass">
+      <inertial>
+        <mass value="${mass}" />
+        <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+      </inertial>
+    </xacro:macro>
+
+    <link name="base_link">
+      <visual>
+        <origin xyz="0 0 ${base_height/2}"/>
+        <geometry>
+          <cylinder radius="${base_diam/2}" length="${base_height}"/>
+        </geometry>
+        <material name="black"/>
+      </visual>
+      <collision>
+        <origin xyz="0 0 ${base_height/2}"/>
+        <geometry>
+          <cylinder radius="${base_diam/2}" length="${base_height}"/>
+        </geometry>
+      </collision>
+      <!--xacro:default_inertial mass="10"/-->
+    </link>
+
+    <link name="link1">
+      <visual>
+        <origin xyz="0 0 ${d1/2}" rpy="0 0 0"/>
+        <geometry>
+          <cylinder radius="${link_diam/2}" length="${d1}"/>
+        </geometry>
+        <material name="white"/>
+      </visual>
+      <collision>
+        <origin xyz="0 0 ${d1/2}" rpy="0 0 0"/>
+        <geometry>
+          <cylinder radius="${link_diam/2}" length="${d1}"/>
+        </geometry>
+      </collision>
+      <xacro:default_inertial mass="2"/>
+    </link>
+
+    <joint name="joint1" type="revolute">
+      <axis xyz="0 0 1"/>
+      <limit effort="1000.0" lower="-10" upper="10" velocity="0.5"/>
+      <origin rpy="0 0 0" xyz="0 0 ${base_height}"/>
+      <parent link="base_link"/>
+      <child link="link1"/>
+    </joint>
+
+    <link name="link2">
+      <visual>
+        <origin xyz="0 0 ${d2/2}" rpy="0 0 0"/>
+        <geometry>
+          <cylinder radius="${link_diam/2}" length="${d2}"/>
+        </geometry>
+        <material name="blue"/>
+      </visual>
+      <collision>
+        <origin xyz="0 0 ${d2/2}" rpy="0 0 0"/>
+        <geometry>
+          <cylinder radius="${link_diam/2}" length="${d2}"/>
+        </geometry>
+      </collision>
+      <xacro:default_inertial mass="2"/>
+    </link>
+
+    <joint name="joint2" type="revolute">
+      <axis xyz="0 0 1"/>
+      <limit effort="1000.0" lower="-3.8" upper="3.8" velocity="0.5"/>
+      <origin rpy="1.5708 -1.5708 0" xyz="0 0 ${d1}"/>
+      <parent link="link1"/>
+      <child link="link2"/>
+    </joint>
+
+    <link name="link3">
+      <visual>
+        <origin xyz="0 0 ${d3/2}" rpy="0 0 0"/>
+        <geometry>
+          <cylinder radius="${link_diam/2}" length="${d3}"/>
+        </geometry>
+        <material name="white"/>
+      </visual>
+      <collision>
+        <origin xyz="0 0 ${d3/2}" rpy="0 0 0"/>
+        <geometry>
+          <cylinder radius="${link_diam/2}" length="${d3}"/>
+        </geometry>
+      </collision>
+      <xacro:default_inertial mass="2"/>
+    </link>
+
+    <joint name="joint3" type="revolute">
+      <axis xyz="0 0 1"/>
+      <limit effort="1000.0" lower="-3.8" upper="3.8" velocity="0.5"/>
+      <origin rpy="1.5708 -1.5708 0" xyz="0 0 ${d2}"/>
+      <parent link="link2"/>
+      <child link="link3"/>
+    </joint>
+
+    <link name="tool">
+      <visual>
+        <origin xyz="0 ${tool_length/2} 0" rpy="0 0 1.5708"/>
+        <geometry>
+          <box size="${tool_length} 0.02 0.02"/>
+        </geometry>
+        <material name="blue"/>
+      </visual>
+      <collision>
+        <origin xyz="0 ${tool_length/2} 0" rpy="0 0 1.5708"/>
+        <geometry>
+          <box size="${tool_length} 0.02 0.02"/>
+        </geometry>
+      </collision>
+      <xacro:default_inertial mass="0.2"/>
+    </link>
+
+    <joint name="tool_joint" type="fixed">
+      <axis xyz="0 0 1"/>
+      <limit effort="1000.0" lower="-0.7" upper="3.8" velocity="0.5"/>
+      <origin rpy="1.5708 0 1.5708" xyz="0 0 ${d3}"/>
+      <parent link="link3"/>
+      <child link="tool"/>
+    </joint>
+
+</robot>

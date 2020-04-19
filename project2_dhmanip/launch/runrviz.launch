@@ -1,0 +1,14 @@
+<launch>
+
+  <arg name="model" default="$(find project2_dhmanip)/urdf/manip.urdf"/>
+  <arg name="gui" default="true" />
+  <arg name="rvizconfig" default="$(find project2_dhmanip)/rviz/urdf.rviz" />
+
+  <param name="robot_description" command="$(find xacro)/xacro.py $(arg model)" />
+  <param name="use_gui" value="$(arg gui)"/>
+
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true" />
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+
+
+</launch>
