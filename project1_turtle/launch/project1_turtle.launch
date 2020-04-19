@@ -1,6 +1,6 @@
 <launch>
 
-	<param name="keycode_L" value="a"/>
+	<!--param name="keycode_L" value="a"/-->
 	<param name="keycode_R" value="d"/>
 	<param name="keycode_F" value="w"/>
 	<param name="keycode_B" value="s"/>
