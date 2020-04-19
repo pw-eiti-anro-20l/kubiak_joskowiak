@@ -1,13 +1,14 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://ros.org/wiki/xacro" name="manipulator" >
 
-    <xacro:property name="d1" value="0.2"/>
-    <xacro:property name="d2" value="0.2"/>
-    <xacro:property name="d3" value="0.2"/>
-    <xacro:property name="base_diam" value="0.4"/>
-    <xacro:property name="base_height" value="0.1"/>
-    <xacro:property name="link_diam" value="0.05"/>
-    <xacro:property name="tool_length" value="0.05"/>
+    <xacro:property name="d1" value="$(arg d1)"/>
+    <xacro:property name="d2" value="$(arg d2)"/>
+    <xacro:property name="d3" value="$(arg d3)"/>
+    <xacro:property name="base_diam" value="$(arg base_diam)"/>
+    <xacro:property name="base_height" value="$(arg base_height)"/>
+    <xacro:property name="link_diam" value="$(arg link_diam)"/>
+    <xacro:property name="tool_length" value="$(arg tool_length)"/>
+
 
 
     <material name="blue">
