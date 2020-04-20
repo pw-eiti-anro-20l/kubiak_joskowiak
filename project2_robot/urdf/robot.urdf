@@ -1,0 +1,46 @@
+<robot name="robot">
+
+	<link name="base">
+		<visual>
+			<geometry>
+		        <cylinder length="0.3" radius="0.3"/>
+			</geometry>
+			<origin xyz="0 0 0.15"/>
+		</visual>
+	</link>
+	<link name="thing1">
+		<geometry>
+			<cylinder length="2" radius="0.1"/>
+		</geometry>
+		<origin xyz="0 0 -1"/>
+	</link>
+	<link name="thing2">
+		<geometry>
+			<cylinder length="3" radius="0.1"/>
+		</geometry>
+		<origin xyz="0 0 -3"/>
+	</link>
+	<link name="thing3">
+		<geometry>
+			<cylinder length="4" radius="0.1"/>
+		</geometry>
+		<origin xyz="0 0 -4"/>
+	</link>
+	
+	<joint name="base-thing1" type="fixed">
+		<parent link="base"/>
+		<child link="thing1"/>
+		<origin xyz="0 0 2" rpy="0 0 0"/>
+	</joint>
+	<joint name="thing1-thing2" type="fixed">
+		<parent link="thing1"/>
+		<child link="thing2"/>
+		<origin xyz="0 3 0" rpy="1.57075 1.57075 0"/>
+	</joint>
+	<joint name="thing2-thing3" type="fixed">
+		<parent link="thing2"/>
+		<child link="thing3"/>
+		<origin xyz="0 4 0" rpy="1.57075 1.57075 0"/>
+	</joint>
+
+</robot>

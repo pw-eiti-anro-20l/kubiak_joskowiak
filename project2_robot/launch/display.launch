@@ -1,0 +1,13 @@
+<launch>
+
+	<command "$(rosparam set \d1 3)"/> 
+	<command "$(rosparam set \d2 3)"/> 
+	<command "$(rosparam set \d3 3)"/> 
+
+	<param name="robot_description" command="$(find project2_robot)/urdf/robot.urdf" />
+
+	<node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+	<node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
+	<node name="rviz" pkg="rviz" type="rviz" required="true" />
+
+</launch>
