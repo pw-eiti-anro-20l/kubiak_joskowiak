@@ -92,7 +92,7 @@ if __name__ == '__main__':
 
 	params = {}
 	pubP = rospy.Publisher('nonkdl_dkin/pose', PoseStamped, queue_size=10)
-	pubM = rospy.Publisher('nonkdl_dkin/visual', Marker, queue_size=10)
+	pubM = rospy.Publisher('nonkdl_dkin/marker', Marker, queue_size=10)
 
 	with open(os.path.dirname(os.path.realpath(__file__))[:-8] + '/yaml/dhparams.json','r') as f:
 		params = json.loads(f.read())

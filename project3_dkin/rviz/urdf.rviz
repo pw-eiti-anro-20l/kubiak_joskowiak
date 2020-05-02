@@ -7,6 +7,8 @@ Panels:
         - /Global Options1
         - /Status1
         - /Marker1
+        - /Marker2
+        - /Marker2/Status1
       Splitter Ratio: 0.5
     Tree Height: 542
   - Class: rviz/Selection
@@ -110,7 +112,7 @@ Visualization Manager:
       Value: false
     - Class: rviz/Marker
       Enabled: true
-      Marker Topic: /nonkdl_dkin/visual
+      Marker Topic: /nonkdl_dkin/marker
       Name: Marker
       Namespaces:
         {}
@@ -118,7 +120,7 @@ Visualization Manager:
       Value: true
     - Class: rviz/Marker
       Enabled: true
-      Marker Topic: /kdl_dkin/visual
+      Marker Topic: /kdl_dkin/marker
       Name: Marker
       Namespaces:
         "": true
