@@ -18,6 +18,7 @@ def callback(data):
 	# joint 1
 	a, alpha, d, theta = params['i1']
 	a, alpha, d, theta = float(a), float(alpha), float(d), float(theta)
+	d = rospy.get_param("d1", d)
 
 	Tx = translation_matrix((a,0,0))
 	Rx = rotation_matrix(alpha, xAxis)
@@ -29,6 +30,7 @@ def callback(data):
 	# joint 2
 	a, alpha, d, theta = params['i2']
 	a, alpha, d, theta = float(a), float(alpha), float(d), float(theta)
+	d = rospy.get_param("d2", d)
 
 	Tx = translation_matrix((a,0,0))
 	Rx = rotation_matrix(alpha, xAxis)
@@ -40,6 +42,7 @@ def callback(data):
 	# joint 3
 	a, alpha, d, theta = params['i3']
 	a, alpha, d, theta = float(a), float(alpha), float(d), float(theta)
+	d = rospy.get_param("d3", d)
 
 	Tx = translation_matrix((a,0,0))
 	Rx = rotation_matrix(alpha, xAxis)

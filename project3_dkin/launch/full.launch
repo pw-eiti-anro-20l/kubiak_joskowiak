@@ -17,13 +17,19 @@
     link_diam:=$(arg link_diam) tool_length:=$(arg tool_length)"/>
   <param name="use_gui" value="$(arg gui)"/>
 
-
+  <param name="d1" value="$(arg d1)" />
+  <param name="d2" value="$(arg d2)" />
+  <param name="d3" value="$(arg d3)" />
+  <param name="base_diam" value="$(arg base_diam)" />
+  <param name="base_height" value="$(arg base_height)" />
+  <param name="link_diam" value="$(arg link_diam)" />
+  <param name="tool_length" value="$(arg tool_length)" />
 
   <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true" />
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
   <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
-  <node name="nonkdl_dkin" pkg="project3_dkin" type="nonkdl_dkin.py"/>
-  <node name="kdl_dkin" pkg="project3_dkin" type="kdl_dkin.py" output="screen" />
+  <node name="nonkdl_dkin" pkg="project3_dkin" type="nonkdl_dkin.py" output="screen" />
+  <node name="kdl_dkin" pkg="project3_dkin" type="kdl_dkin.py" />
 
 
 </launch>
