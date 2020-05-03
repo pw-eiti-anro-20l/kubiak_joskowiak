@@ -16,25 +16,27 @@ def callback(data):
 	KDL_frame = PyKDL.Frame()
 
 	# base
-	frame0 = KDL_frame.DH(0,0,0,0)
+	frame0 = KDL_frame.DH(A[0],Alpha[0],0,0)
 	joint0 = PyKDL.Joint(PyKDL.Joint.None)
-	KDL_chain.addSegment(PyKDL.Segment(joint0, frame0))
+	KDL_chain.addSegment(PyKDL.Segment(joint0,frame0))
 
 	# joint 1
 	# a, alpha, d, theta = params['i1']
-	frame1 = KDL_frame.DH(A[0],Alpha[0],D[0],Theta[0])
+	# frame1 = KDL_frame.DH(A[0],Alpha[0],D[0],Theta[0])
+	frame1 = KDL_frame.DH(A[1],Alpha[1],D[0],Theta[0])
 	joint1 = PyKDL.Joint(PyKDL.Joint.TransZ)
 	KDL_chain.addSegment(PyKDL.Segment(joint1,frame1))
 
 	# joint 2
 	# a, alpha, d, theta = params['i2']
-	frame2 = KDL_frame.DH(A[1],Alpha[1],D[1],Theta[1])
+	frame2 = KDL_frame.DH(A[2],Alpha[2],D[1],Theta[1])
+	# frame2 = KDL_frame.DH(0,0,0,0)
 	joint2 = PyKDL.Joint(PyKDL.Joint.TransZ)
 	KDL_chain.addSegment(PyKDL.Segment(joint2,frame2))
 
 	# joint 3
 	# a, alpha, d, theta = params['i3']
-	frame3 = KDL_frame.DH(A[2],Alpha[2],D[2],Theta[2])
+	frame3 = KDL_frame.DH(0,0,D[2],Theta[2])
 	joint3 = PyKDL.Joint(PyKDL.Joint.TransZ)
 	KDL_chain.addSegment(PyKDL.Segment(joint3,frame3))
 
@@ -66,9 +68,9 @@ def callback(data):
 	marker.type = marker.SPHERE
 	marker.action = marker.ADD
 	marker.pose = poseStamped.pose
-	marker.scale.x = 0.08
-	marker.scale.y = 0.08
-	marker.scale.z = 0.08
+	marker.scale.x = 0.06
+	marker.scale.y = 0.06
+	marker.scale.z = 0.06
 	marker.color.a = 1
 	marker.color.r = 1
 	marker.color.g = 0
