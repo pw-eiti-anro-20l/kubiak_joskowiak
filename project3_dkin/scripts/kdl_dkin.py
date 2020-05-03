@@ -21,21 +21,19 @@ def callback(data):
 	KDL_chain.addSegment(PyKDL.Segment(joint0,frame0))
 
 	# joint 1
-	# a, alpha, d, theta = params['i1']
-	# frame1 = KDL_frame.DH(A[0],Alpha[0],D[0],Theta[0])
-	frame1 = KDL_frame.DH(A[1],Alpha[1],D[0],Theta[0])
+	d = rospy.get_param("d1", D[0])
+	frame1 = KDL_frame.DH(A[1],Alpha[1],d,Theta[0])
 	joint1 = PyKDL.Joint(PyKDL.Joint.TransZ)
 	KDL_chain.addSegment(PyKDL.Segment(joint1,frame1))
 
 	# joint 2
-	# a, alpha, d, theta = params['i2']
+	d = rospy.get_param("d2", D[1])
 	frame2 = KDL_frame.DH(A[2],Alpha[2],D[1],Theta[1])
-	# frame2 = KDL_frame.DH(0,0,0,0)
 	joint2 = PyKDL.Joint(PyKDL.Joint.TransZ)
 	KDL_chain.addSegment(PyKDL.Segment(joint2,frame2))
 
 	# joint 3
-	# a, alpha, d, theta = params['i3']
+	d = rospy.get_param("d3", D[2])
 	frame3 = KDL_frame.DH(0,0,D[2],Theta[2])
 	joint3 = PyKDL.Joint(PyKDL.Joint.TransZ)
 	KDL_chain.addSegment(PyKDL.Segment(joint3,frame3))
