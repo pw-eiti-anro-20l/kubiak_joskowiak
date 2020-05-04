@@ -14,6 +14,7 @@ from visualization_msgs.msg import Marker
 def callback(data):
 	KDL_chain = PyKDL.Chain()
 	KDL_frame = PyKDL.Frame()
+	errorFlag = 0
 
 	# base
 	frame0 = KDL_frame.DH(A[0],Alpha[0],0,0)
@@ -22,18 +23,24 @@ def callback(data):
 
 	# joint 1
 	d = rospy.get_param("d1", D[0])
+	if (data.position[0] < -d) or (data.position[0] > 0):
+		errorFlag = 1
 	frame1 = KDL_frame.DH(A[1],Alpha[1],d,Theta[0])
 	joint1 = PyKDL.Joint(PyKDL.Joint.TransZ)
 	KDL_chain.addSegment(PyKDL.Segment(joint1,frame1))
 
 	# joint 2
 	d = rospy.get_param("d2", D[1])
+	if (data.position[1] < -d) or (data.position[1] > 0):
+		errorFlag = 2
 	frame2 = KDL_frame.DH(A[2],Alpha[2],d,Theta[1])
 	joint2 = PyKDL.Joint(PyKDL.Joint.TransZ)
 	KDL_chain.addSegment(PyKDL.Segment(joint2,frame2))
 
 	# joint 3
 	d = rospy.get_param("d3", D[2])
+	if (data.position[2] < -d) or (data.position[2] > 0):
+		errorFlag = 3
 	frame3 = KDL_frame.DH(0,0,d,Theta[2])
 	joint3 = PyKDL.Joint(PyKDL.Joint.TransZ)
 	KDL_chain.addSegment(PyKDL.Segment(joint3,frame3))
@@ -74,8 +81,11 @@ def callback(data):
 	marker.color.g = 0
 	marker.color.b = 0
 
-	pubP.publish(poseStamped)
-	pubM.publish(marker)
+	if errorFlag==0:
+		pubP.publish(poseStamped)
+		pubM.publish(marker)
+	else:
+		print('Error: joint{} out of bounds'.format(errorFlag))
 
 	# print('T matrices:')
 	# print(T_matrices)

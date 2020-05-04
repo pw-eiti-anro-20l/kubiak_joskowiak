@@ -13,12 +13,15 @@ from visualization_msgs.msg import Marker
 def callback(data):
 	xAxis = (1,0,0)
 	zAxis = (0,0,1)
-
+	errorFlag = 0
 
 	# joint 1
 	a, alpha, d, theta = params['i1']
 	a, alpha, d, theta = float(a), float(alpha), float(d), float(theta)
 	d = rospy.get_param("d1", d)
+
+	if (data.position[0] < -d) or (data.position[0] > 0):
+		errorFlag = 1
 
 	Tx = translation_matrix((a,0,0))
 	Rx = rotation_matrix(alpha, xAxis)
@@ -32,6 +35,9 @@ def callback(data):
 	a, alpha, d, theta = float(a), float(alpha), float(d), float(theta)
 	d = rospy.get_param("d2", d)
 
+	if (data.position[1] < -d) or (data.position[1] > 0):
+		errorFlag = 2
+
 	Tx = translation_matrix((a,0,0))
 	Rx = rotation_matrix(alpha, xAxis)
 	Tz = translation_matrix((0,0,data.position[1]+d))
@@ -44,6 +50,9 @@ def callback(data):
 	a, alpha, d, theta = float(a), float(alpha), float(d), float(theta)
 	d = rospy.get_param("d3", d)
 
+	if (data.position[2] < -d) or (data.position[2] > 0):
+		errorFlag = 3
+
 	Tx = translation_matrix((a,0,0))
 	Rx = rotation_matrix(alpha, xAxis)
 	Tz = translation_matrix((0,0,data.position[2]+d))
@@ -53,7 +62,6 @@ def callback(data):
 
 	# final touches
 	final_matrix = concatenate_matrices(T_1,T_2,T_3)
-	# print(final_matrix)
 	x, y, z = translation_from_matrix(final_matrix)
 	qx, qy, qz, qw = quaternion_from_matrix(final_matrix)
 
@@ -81,13 +89,11 @@ def callback(data):
 	marker.color.g = 1
 	marker.color.b = 0
 
-	pubP.publish(poseStamped)
-	pubM.publish(marker)
-
-	# print('T matrices:')
-	# print(T_matrices)
-	# print('Final matrix:')
-	# print(final_matrix)
+	if errorFlag==0:
+		pubP.publish(poseStamped)
+		pubM.publish(marker)
+	else:
+		print('Error: joint{} out of bounds'.format(errorFlag))
 
 if __name__ == '__main__':
 	
