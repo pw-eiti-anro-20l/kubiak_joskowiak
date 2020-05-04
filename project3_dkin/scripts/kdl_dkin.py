@@ -28,13 +28,13 @@ def callback(data):
 
 	# joint 2
 	d = rospy.get_param("d2", D[1])
-	frame2 = KDL_frame.DH(A[2],Alpha[2],D[1],Theta[1])
+	frame2 = KDL_frame.DH(A[2],Alpha[2],d,Theta[1])
 	joint2 = PyKDL.Joint(PyKDL.Joint.TransZ)
 	KDL_chain.addSegment(PyKDL.Segment(joint2,frame2))
 
 	# joint 3
 	d = rospy.get_param("d3", D[2])
-	frame3 = KDL_frame.DH(0,0,D[2],Theta[2])
+	frame3 = KDL_frame.DH(0,0,d,Theta[2])
 	joint3 = PyKDL.Joint(PyKDL.Joint.TransZ)
 	KDL_chain.addSegment(PyKDL.Segment(joint3,frame3))
 
@@ -95,6 +95,7 @@ if __name__ == '__main__':
 	if (len(params) <= 0):
 		print('No parameters')
 		sys.exit(1)
+
 
 	A, Alpha, D, Theta = {}, {}, {}, {}
 	A[0], Alpha[0], D[0], Theta[0] = params['i1']
