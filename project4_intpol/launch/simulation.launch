@@ -31,7 +31,7 @@
 
 
   <!--node name="nonkdl_dkin" pkg="project3_dkin" type="nonkdl_dkin.py" /-->
-  <node name="kdl_dkin" pkg="project3_dkin" type="kdl_dkin.py" output="screen" />
+  <!--node name="kdl_dkin" pkg="project3_dkin" type="kdl_dkin.py" output="screen" /-->
 
 
 </launch>
