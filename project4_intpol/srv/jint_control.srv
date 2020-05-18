@@ -1,0 +1,8 @@
+string interpolation_mode
+float64 joint1
+float64 joint2
+float64 joint3
+float64 move_time
+float64 accel_limit
+---
+string interpolation_status

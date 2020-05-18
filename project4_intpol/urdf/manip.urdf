@@ -139,7 +139,7 @@
 			<xacro:default_inertial mass="0.2"/>
 		</link>
 
-		<joint name="tool_joint" type="prismatic">
+		<joint name="tool_joint" type="fixed">
 			<axis xyz="0 0 1"/>
 			<limit effort="1000.0" lower="-0.7" upper="3.8" velocity="0.5"/>
 			<origin rpy="1.5708 0 1.5708" xyz="0 0 ${d3}"/>
