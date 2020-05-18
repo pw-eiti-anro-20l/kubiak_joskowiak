@@ -174,11 +174,11 @@ def oint_init():
 
     coordinate_system1_path_msg = Path()
     rospy.init_node('oint')
-    intpol_pub = rospy.Publisher('/coordinate_system1_pose', PoseStamped, queue_size=1)
-    config_sub = rospy.Subscriber('/coordinate_system1_pose', PoseStamped,
+    intpol_pub = rospy.Publisher('/oint/coordinate_system1_pose', PoseStamped, queue_size=1)
+    config_sub = rospy.Subscriber('/oint/coordinate_system1_pose', PoseStamped,
                                     coordinate_system1_pose_callback)
 
-    coordinate_system1_path_pub = rospy.Publisher('/coordinate_system1_path', Path,
+    coordinate_system1_path_pub = rospy.Publisher('/oint/coordinate_system1_path', Path,
                                                                 queue_size=1)
 
     oint_control_srv = rospy.Service('oint_control_srv', oint_control,

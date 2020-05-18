@@ -42,6 +42,15 @@ def check_limit(joint_config):
 
     return joint_config
 
+def check_acceleration(target_config, T, accel_limit):
+    global x0_config
+
+    # analytic solution
+    for i in range(3):
+        max_accel = abs((x0_config[i] - target_config[i]) * 5.7735/T**2)
+        if max_accel > accel_limit:
+            return False
+
 def init_config(config):
     global intpol_pub
     js_msg = JointState()
@@ -68,6 +77,9 @@ def handle_jint_control(req):
 
     if req.interpolation_mode == 'quartic':
         intpol_fun = quartic_vel_interpol
+
+        if not check_acceleration([req.joint1, req.joint2, req.joint3, 0.0], req.move_time, req.accel_limit):
+            return 'acceleration limit will be exceeded'
     elif req.interpolation_mode == 'linear':
         intpol_fun = linear_intpol
     else:
@@ -75,10 +87,11 @@ def handle_jint_control(req):
         'default: quartic')
 
     if req.move_time <= 0:
-        # print('handling move_time <= 0 is not yet implemented')
         return 'handling move_time <= 0 is not yet implemented'
 
     x1_config = check_limit([req.joint1, req.joint2, req.joint3, 0.0])
+
+
 
     js_msg = JointState()
     js_msg.name = ['joint1', 'joint2', 'joint3', 'tool_joint']
