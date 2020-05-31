@@ -98,9 +98,9 @@ def handle_jint_control(req):
 
     js_msg = JointState()
     js_msg.name = ['joint1', 'joint2', 'joint3', 'tool_joint']
-    t = 0
-    hz = 20
-    dt = 1/hz
+    t = 0.0
+    hz = 20.0
+    dt = 1.0/hz
     rate = rospy.Rate(hz)
     intpol_config = list(copy.copy(x0_configl))
 
