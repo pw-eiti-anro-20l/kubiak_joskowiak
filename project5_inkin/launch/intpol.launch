@@ -1,5 +1,6 @@
 <launch>
-  <node name="jint" pkg="project4_intpol" type="jint.py" output="screen" />
   <node name="oint" pkg="project4_intpol" type="oint.py" output="screen" />
   <node name="kdl_dkin" pkg="project3_dkin" type="kdl_dkin.py" output="screen" />
+  <node name="inkin" pkg="project5_inkin" type="ikin.py" output="screen" />
+  <node name="ocmd" pkg="project5_inkin" type="ocmd.py" output="screen" />
 </launch>
