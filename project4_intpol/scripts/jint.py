@@ -51,6 +51,8 @@ def check_acceleration(target_config, T, accel_limit):
         if max_accel > accel_limit:
             return False
 
+    return True
+
 def init_config(config):
     global intpol_pub
     js_msg = JointState()
@@ -74,30 +76,32 @@ def handle_jint_control(req):
 
 
     x0_configl = copy.copy(x0_config)
+    x1_config = check_limit([req.joint1, req.joint2, req.joint3, 0.0])
+    print('target_config: ', x1_config)
 
     if req.interpolation_mode == 'quartic':
         intpol_fun = quartic_vel_interpol
-
-        if not check_acceleration([req.joint1, req.joint2, req.joint3, 0.0], req.move_time, req.accel_limit):
+        if not check_acceleration(x1_config, req.move_time, req.accel_limit):
             return 'acceleration limit will be exceeded'
     elif req.interpolation_mode == 'linear':
         intpol_fun = linear_intpol
     else:
-        print('no mode chosen/wrong mode name. available: quartic, linear' +
+        return ('no mode chosen/wrong mode name. available: quartic, linear' +
         'default: quartic')
 
     if req.move_time <= 0:
         return 'handling move_time <= 0 is not yet implemented'
 
-    x1_config = check_limit([req.joint1, req.joint2, req.joint3, 0.0])
+
 
 
 
     js_msg = JointState()
     js_msg.name = ['joint1', 'joint2', 'joint3', 'tool_joint']
     t = 0
-    dt = 0.05
-    rate = rospy.Rate(20)
+    hz = 20
+    dt = 1/hz
+    rate = rospy.Rate(hz)
     intpol_config = list(copy.copy(x0_configl))
 
     while t < req.move_time:

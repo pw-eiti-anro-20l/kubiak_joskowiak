@@ -1,5 +1,5 @@
 <launch>
-  <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true" />
-  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+  <node name="jint" pkg="project4_intpol" type="jint.py" output="screen" />
+  <node name="oint" pkg="project4_intpol" type="oint.py" output="screen" />
   <node name="kdl_dkin" pkg="project3_dkin" type="kdl_dkin.py" output="screen" />
 </launch>
