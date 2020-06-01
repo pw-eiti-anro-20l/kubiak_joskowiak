@@ -15,10 +15,6 @@ find_package(catkin REQUIRED COMPONENTS
 
 add_service_files(
    FILES
-   jint_control.srv
-   oint_control.srv
-   jint_clear.srv
-   oint_clear.srv
    ocmd_control.srv
 )
 
